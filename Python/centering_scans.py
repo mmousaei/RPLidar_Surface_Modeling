@@ -1,3 +1,4 @@
+
 from read_scans import ScanSeries
 from centering_data_modification import CenterScanSeries
 import numpy as np
@@ -49,7 +50,7 @@ class Centering:
 
 		self.num_scans = -1
 
-	def centered_data_gen(self, filename):
+	def centered_data_gen(self, filename, smoothingFactor):
 
 		scan = ScanSeries()
 		scan.read_scan_data(filename)
@@ -57,13 +58,13 @@ class Centering:
 		# print(scan.scan_data[3].ranges[1])
 
 		findCenter = CenterScanSeries()
-		findCenter.read_scan_data(filename)
+		findCenter.read_scan_data(filename, smoothingFactor)
 
 		# theta0 = 0
 		# ranges = []
 		# angles = []
 
-		print(scan.num_scans)
+		# print(scan.num_scans)
 		for k in range(scan.num_scans):
 			ranges = []
 			angles = []
@@ -87,27 +88,23 @@ class Centering:
 
 
 			(xneg, yneg) = (findCenter.return_single_center(k))
-			# x = -xneg
-			# y = -yneg
+			x = -xneg
+			y = -yneg
 
-			# print(x)
-			# print(y)
+			r0 = -math.sqrt(x**2 + y**2)
+			theta0 = np.arctan(y/x)
 
+			# print(r0)
+			# print(theta0)
 
-
-			# r0 = -math.sqrt(x**2 + y**2)
-			r0 = 0
-			# theta0 = np.arctan(y/x)
-			theta0 = 0
-
+			# r0 = 0.071
+			# theta0 = 0.05
 
 			for i in range(len(scan.scan_data[k].ranges)):
 
 				if( math.isinf( scan.scan_data[k].ranges[i] ) ):
 					ranges.append( scan.scan_data[k].ranges[i] )
 					angles.append( scan.scan_data[k].angles[i] )
-					# self.centered_data[k].ranges.append( scan.scan_data[k].ranges[i-1] )
-					# self.centered_data[k].angles.append( scan.scan_data[k].angles[i-1] )
 				else:
 					r = scan.scan_data[k].ranges[i]
 					theta = scan.scan_data[k].angles[i]
@@ -141,8 +138,3 @@ class Centering:
 		plt.gca().set_aspect('equal')
 		plt.show()
 
-
-
-
-
-7

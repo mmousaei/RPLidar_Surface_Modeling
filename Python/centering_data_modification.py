@@ -2,7 +2,10 @@
 
 import numpy as np
 from read_scans import ScanSeries
+import matplotlib.pyplot as plt
+import hough as H
 from ellipses import LSqEllipse
+
 
 class CenterScanData:
     # Initialize the class
@@ -49,10 +52,9 @@ class CenterScanSeries:
         # number of scans
         self.num_scans = -1
 
-    def radius_smoothing(self, ranges):
+    def radius_smoothing(self, ranges, alpha):
         SmoothRanges = []
         SmoothRanges.append(ranges[0])
-        alpha = .0004
         n = len(ranges)
         for i in range(1, n):
             r = alpha*ranges[i-1] + (1 - alpha)*ranges[i]
@@ -60,10 +62,11 @@ class CenterScanSeries:
 
         return SmoothRanges
 
-    def read_scan_data(self,filename):
+    def read_scan_data(self,filename, smoothingFactor):
         scan_series_regular = ScanSeries()
         scan_series_regular.read_scan_data(filename)
         for i in range(scan_series_regular.num_scans):
+            # print(i)
             self.center_scan_data.append(CenterScanData())
             self.center_scan_data[i].timestamp = scan_series_regular.scan_data[i].timestamp
             self.center_scan_data[i].min_angle = scan_series_regular.scan_data[i].min_angle
@@ -74,7 +77,7 @@ class CenterScanSeries:
             self.center_scan_data[i].min_range = scan_series_regular.scan_data[i].min_range
             self.center_scan_data[i].max_range = scan_series_regular.scan_data[i].max_range
             self.center_scan_data[i].num_points = scan_series_regular.scan_data[i].num_points
-            self.center_scan_data[i].ranges = self.radius_smoothing(scan_series_regular.scan_data[i].ranges)
+            self.center_scan_data[i].ranges = self.radius_smoothing(scan_series_regular.scan_data[i].ranges, smoothingFactor)
             self.center_scan_data[i].intensities = scan_series_regular.scan_data[i].intensities
             self.center_scan_data[i].angles = scan_series_regular.scan_data[i].angles
 
@@ -114,7 +117,6 @@ class CenterScanSeries:
 
             self.center_scan_data[i].center = (cent_x,cent_y)
             self.center_scan_data[i].avg_radius = (a+b)/2
-
 
 
     def return_single_center(self, index):

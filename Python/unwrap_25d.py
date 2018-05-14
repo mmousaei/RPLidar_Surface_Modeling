@@ -24,6 +24,8 @@ class unwrap:
 	    # array of angles
 		self.z = []	
 
+		self.angles = []
+
 
 
 class Unwrapping:
@@ -37,14 +39,16 @@ class Unwrapping:
 		self.z = []
 
 
-	def unwraped_data_gen(self, filename):
+	def unwraped_data_gen(self, filename, smoothingFactor):
 
 		centered_scans = Centering()
-		centered_scans.centered_data_gen(filename)
+		centered_scans.centered_data_gen(filename, smoothingFactor)
 
 		# print(centered_scans.centered_data[5].ranges[10])
 		# print(centered_scans.centered_data[1].ranges[3])
-		radius = 0.375 #meter
+		radius = 0.375 #30in pipe in meter
+		# radius = 0.5334 #42in pipe in meter
+		# radius = 0.523875 #42 cal test pipe
 		vel = 5 #cmps
 		freq = 7 #hz
 		self.num_scans = centered_scans.num_scans
@@ -58,6 +62,7 @@ class Unwrapping:
 			self.unwraped_data[i].time_increment = centered_scans.centered_data[i].time_increment
 			self.unwraped_data[i].time = centered_scans.centered_data[i].time
 			self.unwraped_data[i].num_points = centered_scans.centered_data[i].num_points
+			self.unwraped_data[i].angles = centered_scans.centered_data[i].angles
 			self.unwraped_data[i].x = []
 			self.unwraped_data[i].y = []
 			self.unwraped_data[i].z = []
