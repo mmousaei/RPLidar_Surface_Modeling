@@ -1,0 +1,2 @@
+/usr/bin/ar cr libcsvreader.a  CMakeFiles/csvreader.dir/src/csvreader.cpp.o
+/usr/bin/ranlib libcsvreader.a

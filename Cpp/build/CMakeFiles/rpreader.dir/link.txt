@@ -1,0 +1,2 @@
+/usr/bin/ar cr librpreader.a  CMakeFiles/rpreader.dir/src/rpreader.cpp.o
+/usr/bin/ranlib librpreader.a

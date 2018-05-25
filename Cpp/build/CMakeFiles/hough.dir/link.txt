@@ -1,0 +1,2 @@
+/usr/bin/ar cr libhough.a  CMakeFiles/hough.dir/src/hough.cpp.o
+/usr/bin/ranlib libhough.a
