@@ -5,27 +5,31 @@ RPLidar Surface Modeling
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-<<<<<<< HEAD
-### Dependencies
-=======
+Please make sure that you have successfully installed the following dependencies before trying to run this package.
 ### Dependencies:
->>>>>>> 170c6645debd26255e78221b5667dea01f3234db
 ---------------------
-Boost >= 1.43   (https://www.boost.org/)
-CMake >= 2.6    (https://cmake.org/)
-OpenCV >= 3.2	(https://opencv.org/)
-GnuPlot >= 5.3	(http://www.gnuplot.info/)
+
+* [Boost](https://www.boost.org/) - Boost C++ Libraries (V >= 1.43)
+* [CMake](https://cmake.org/) - CMake open-source, cross-platform (V >= 2.6)
+* [OpenCV](https://opencv.org/) - Open Source Computer Vision Library (V >= 3.2)
+* [GnuPlot](http://www.gnuplot.info/) - gnuplot portable command-line driven graphing utility (V >= 5.3)
+
 ### Installing
 ---------------------
 Run the following to build the library:
+
+```
     mkdir build
     cd build
     cmake ..
     make
+```
 
 To run the main code:
+
+```
     ./main
+```
 
 ## Running the tests
 
@@ -51,15 +55,8 @@ Give an example
 
 Add additional notes about how to deploy this on a live system
 
-## Built With
 
-* [Boost](https://www.boost.org/) - Boost C++ Libraries
-* [CMake](https://cmake.org/) - CMake open-source, cross-platform
-* [OpenCV](https://opencv.org/) - Open Source Computer Vision Library
-* [GnuPlot](http://www.gnuplot.info/) - gnuplot portable command-line driven graphing utility
-
-
-## Authors
+## Author
 
 * **Mohammadreza Mousaei** - [mmousaei](https://github.com/mmousaei)
 
