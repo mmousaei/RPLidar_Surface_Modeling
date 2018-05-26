@@ -1,4 +1,4 @@
-# Project Title
+# RPLidar Surface Modeling
 
 Carnegie Mellon University - RadPiper Post Processing Software
 RPLidar Surface Modeling
@@ -6,9 +6,7 @@ RPLidar Surface Modeling
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
 ### Prerequisites
-
 Dependencies:
 ---------------------
 Boost >= 1.43   (https://www.boost.org/)
