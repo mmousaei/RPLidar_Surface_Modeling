@@ -6,15 +6,14 @@ RPLidar Surface Modeling
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-### Prerequisites
-Dependencies:
+### Dependencies
 ---------------------
 Boost >= 1.43   (https://www.boost.org/)
 CMake >= 2.6    (https://cmake.org/)
 OpenCV >= 3.2	(https://opencv.org/)
 GnuPlot >= 5.3	(http://www.gnuplot.info/)
 ### Installing
-
+---------------------
 Run the following to build the library:
     mkdir build
     cd build
