@@ -8,7 +8,7 @@ enable_testing()
 add_compile_options(-std=c++11)
 
 # Find boost libraries
-find_package(Boost COMPONENTS thread system program_options filesystem REQUIRED)
+find_package(Boost COMPONENTS iostreams thread system program_options filesystem REQUIRED)
 find_package(OpenCV REQUIRED)
 # Include headers
 include_directories(${Boost_INCLUDE_DIRS}

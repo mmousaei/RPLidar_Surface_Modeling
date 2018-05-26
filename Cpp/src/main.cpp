@@ -25,10 +25,15 @@
  #include <boost/program_options.hpp>
  #include <boost/filesystem.hpp>
 
+ #include <cmath>
+ #include <boost/tuple/tuple.hpp>
+ #include "gnuplot-iostream.h"
+
 void toCartesian(std::vector<std::vector<std::pair<double, double>>> *polar);
 
 void centering(std::vector<std::vector<std::pair<double, double>>> *uncentered, double r0, double theta0);
 
+void HeatMap(std::vector<std::vector<std::pair<double, double>>> *cartesianHeatmap);
 
 int main(int argc, char** argv)
 {
@@ -39,11 +44,11 @@ int main(int argc, char** argv)
 
   std::vector<std::vector<std::pair<double, double>>> rplidar_polar;
 
-  rp.read("/home/radpiper/Documents/CMU/RadPiper/Post-Processing/Surface_Modeling/rplidar_scan.csv", &rplidar_polar);
+  rp.read("/home/mohammadreza/Documents/RPLidar_Surface_Modeling/Cpp/rplidar_scan.csv", &rplidar_polar);
 
-  toCartesian(&rplidar_polar);
-  // centering(&rplidar_polar, -0.08, 0);
-
+  // toCartesian(&rplidar_polar);
+  centering(&rplidar_polar, -0.08, 0);
+  HeatMap(&rplidar_polar);
 
 
   std::vector<double> circle;
@@ -57,9 +62,9 @@ int main(int argc, char** argv)
 
 
   // std::cout<<temp.size();
-
-  hough.convertToMat(&temp);
-  // std::cout << circle[0] << std::endl;
+// std::vector<double> hg;
+// circle = hough.initializeHough(&temp);
+// std::cout << circle[0] << std::endl;
   // std::cout << circle[1] << std::endl;
   // std::cout << circle[2] << std::endl;
 
@@ -127,4 +132,39 @@ void centering(std::vector<std::vector<std::pair<double, double>>> *uncentered, 
       uncentered->at(i)[j].second = thetap;
     }
   }
+}
+
+
+void HeatMap(std::vector<std::vector<std::pair<double, double>>> *cartesianHeatmap)
+{
+  float frame[4][4];
+    for (int n=0; n<4; n++)
+    {
+        for (int m=0; m<4; m++)
+        {
+        frame[n][m]=n+m;
+        }
+    }
+    Gnuplot gp;
+    gp << "unset key\n";
+    gp << "set pm3d\n";
+    // gp << "set hidden3d\n";
+    gp << "set view map\n";
+    gp << "set xrange [ -0.500000 : 3.50000 ] \n";
+    gp << "set yrange [ -0.500000 : 3.50000 ] \n";
+    gp << "set output 'my.pdf'\n";
+    gp << "set terminal pdfcairo\n";
+
+    // gp << "replot\n";
+    gp << "set term x11\n";
+    gp << "splot '-'\n";
+    // gp << "set output\n";
+    // gp << "set term png\n";
+    // gp << "set output 'printme.png'\n";
+    // gp << "replot\n";
+    // gp << "set term x11\n";
+    gp.send2d(frame);
+    // gp << "pclose \n";
+    // gp.flush();
+
 }
