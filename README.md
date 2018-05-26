@@ -6,7 +6,11 @@ RPLidar Surface Modeling
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+<<<<<<< HEAD
 ### Dependencies
+=======
+### Dependencies:
+>>>>>>> 170c6645debd26255e78221b5667dea01f3234db
 ---------------------
 Boost >= 1.43   (https://www.boost.org/)
 CMake >= 2.6    (https://cmake.org/)
