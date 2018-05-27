@@ -161,8 +161,8 @@ clean: CMakeFiles/hough.dir/clean
 # Target rules for target CMakeFiles/main.dir
 
 # All Build rule for target.
-CMakeFiles/main.dir/all: CMakeFiles/hough.dir/all
 CMakeFiles/main.dir/all: CMakeFiles/csvreader.dir/all
+CMakeFiles/main.dir/all: CMakeFiles/hough.dir/all
 CMakeFiles/main.dir/all: CMakeFiles/error.dir/all
 CMakeFiles/main.dir/all: CMakeFiles/rpreader.dir/all
 	$(MAKE) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/depend

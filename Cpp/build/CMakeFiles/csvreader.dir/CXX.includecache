@@ -6,3 +6,33 @@
 
 #IncludeRegexTransform: 
 
+../include/csvreader.h
+error.h
+../include/error.h
+string
+-
+vector
+-
+fstream
+-
+iostream
+-
+cerrno
+-
+cstdio
+-
+inttypes.h
+-
+stdexcept
+-
+boost/algorithm/string.hpp
+-
+
+../include/error.h
+iostream
+-
+
+/home/radpiper/Documents/CMU/RadPiper/Post-Processing/Surface_Modeling/src/csvreader.cpp
+csvreader.h
+/home/radpiper/Documents/CMU/RadPiper/Post-Processing/Surface_Modeling/src/csvreader.h
+

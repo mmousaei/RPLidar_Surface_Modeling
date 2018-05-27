@@ -29,14 +29,14 @@ Boost_FILESYSTEM_LIBRARY_RELEASE:FILEPATH=/usr/lib/x86_64-linux-gnu/libboost_fil
 //Path to a file.
 Boost_INCLUDE_DIR:PATH=/usr/include
 
+//Boost iostreams library (debug)
+Boost_IOSTREAMS_LIBRARY_DEBUG:FILEPATH=/usr/lib/x86_64-linux-gnu/libboost_iostreams.so
+
+//Boost iostreams library (release)
+Boost_IOSTREAMS_LIBRARY_RELEASE:FILEPATH=/usr/lib/x86_64-linux-gnu/libboost_iostreams.so
+
 //Boost library directory
 Boost_LIBRARY_DIR:PATH=/usr/lib/x86_64-linux-gnu
-
-//Boost OpenCV library (debug)
-Boost_OPENCV_LIBRARY_DEBUG:FILEPATH=Boost_OPENCV_LIBRARY_DEBUG-NOTFOUND
-
-//Boost OpenCV library (release)
-Boost_OPENCV_LIBRARY_RELEASE:FILEPATH=Boost_OPENCV_LIBRARY_RELEASE-NOTFOUND
 
 //Boost program_options library (debug)
 Boost_PROGRAM_OPTIONS_LIBRARY_DEBUG:FILEPATH=/usr/lib/x86_64-linux-gnu/libboost_program_options.so
@@ -246,12 +246,12 @@ Boost_FILESYSTEM_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 Boost_FILESYSTEM_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: Boost_INCLUDE_DIR
 Boost_INCLUDE_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_IOSTREAMS_LIBRARY_DEBUG
+Boost_IOSTREAMS_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: Boost_IOSTREAMS_LIBRARY_RELEASE
+Boost_IOSTREAMS_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: Boost_LIBRARY_DIR
 Boost_LIBRARY_DIR-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: Boost_OPENCV_LIBRARY_DEBUG
-Boost_OPENCV_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
-//ADVANCED property for variable: Boost_OPENCV_LIBRARY_RELEASE
-Boost_OPENCV_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: Boost_PROGRAM_OPTIONS_LIBRARY_DEBUG
 Boost_PROGRAM_OPTIONS_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: Boost_PROGRAM_OPTIONS_LIBRARY_RELEASE
@@ -394,7 +394,7 @@ CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 //Details about finding OpenCV
 FIND_PACKAGE_MESSAGE_DETAILS_OpenCV:INTERNAL=[/usr/local][v3.4.0()]
 //Components requested for this build tree.
-_Boost_COMPONENTS_SEARCHED:INTERNAL=OpenCV;filesystem;program_options;system;thread
+_Boost_COMPONENTS_SEARCHED:INTERNAL=filesystem;iostreams;program_options;system;thread
 //Last used Boost_INCLUDE_DIR value.
 _Boost_INCLUDE_DIR_LAST:INTERNAL=/usr/include
 //Last used Boost_LIBRARY_DIR value.

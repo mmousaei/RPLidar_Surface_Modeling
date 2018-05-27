@@ -8,6 +8,8 @@
 
 #include "csvreader.h"
 
+CSVReader::~CSVReader() {}
+
 Error CSVReader::read(std::string fname, std::vector<std::vector<double>> *data) {
     // Open file stream to given csv
     std::ifstream f(fname);
@@ -122,5 +124,27 @@ Error CSVReader::read(std::string fname, std::vector<std::vector<std::string>> *
     return NO_ERROR;
 }
 
+Error CSVReader::writeLog(std::string fname, std::vector<std::vector<double>> data) {
 
-CSVReader::~CSVReader() {}
+    // Open file stream to given csv
+    std::ofstream f(fname);
+    // if( !f.is_open() ) {
+    //     return FAILED_WRITE_LOG;
+    // }
+
+    // Iterate over rows
+    for(int i = 0; i < data.at(0).size(); i++) {
+        // Iterate over columns
+        for(int j = 0; j < data.size(); j++) {
+            f << (data)[j][i];
+            // Add comma or endline at end of row
+            if( j == data.size()-1 ) {
+                f << std::endl;
+            } else {
+                f << ",";
+            }
+        }
+    }
+
+    return NO_ERROR;
+}

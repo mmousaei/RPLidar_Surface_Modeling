@@ -85,6 +85,7 @@ main: libcsvreader.a
 main: liberror.a
 main: librpreader.a
 main: libhough.a
+main: /usr/lib/x86_64-linux-gnu/libboost_iostreams.so
 main: /usr/lib/x86_64-linux-gnu/libboost_thread.so
 main: /usr/lib/x86_64-linux-gnu/libboost_system.so
 main: /usr/lib/x86_64-linux-gnu/libboost_program_options.so

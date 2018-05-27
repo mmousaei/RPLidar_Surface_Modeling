@@ -35,13 +35,16 @@ std::vector<double> Hough::initializeHough(std::vector<std::pair<double, double>
       if(cartesian->at(i).first > x_max && cartesian->at(i).first < 1) x_max = cartesian->at(i).first;
       if(cartesian->at(i).second < y_min) y_min = cartesian->at(i).second;
       if(cartesian->at(i).second > y_max && cartesian->at(i).second < 1) y_max = cartesian->at(i).second;
-      avg_x += cartesian->at(i).first;
+      avg_x += cartesian->at(i).first - 0.375;
       avg_y += cartesian->at(i).second;
       sum_cnt++;
     }
   }
   avg_x /= sum_cnt;
   avg_y /= sum_cnt;
+
+  std::cout << "x:  " << avg_x << '\n';
+  std::cout << "y:  " << avg_y << '\n';
 
   int x_min_int, x_max_int, y_min_int, y_max_int;
 

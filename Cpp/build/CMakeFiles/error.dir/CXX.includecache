@@ -6,3 +6,11 @@
 
 #IncludeRegexTransform: 
 
+../include/error.h
+iostream
+-
+
+/home/radpiper/Documents/CMU/RadPiper/Post-Processing/Surface_Modeling/src/error.cpp
+error.h
+/home/radpiper/Documents/CMU/RadPiper/Post-Processing/Surface_Modeling/src/error.h
+

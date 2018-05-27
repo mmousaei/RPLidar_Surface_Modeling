@@ -35,6 +35,8 @@ public:
 
     Error read(std::string fname, std::vector<std::vector<double>> *data);
     Error read(std::string fname, std::vector<std::vector<std::string>> *data);
+    Error writeLog(std::string fname, std::vector<std::vector<double>> data);
+
 private:
     std::string delim;
 }; // CSVReader
