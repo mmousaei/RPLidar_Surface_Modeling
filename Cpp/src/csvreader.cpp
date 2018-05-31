@@ -133,12 +133,12 @@ Error CSVReader::writeLog(std::string fname, std::vector<std::vector<double>> da
     // }
 
     // Iterate over rows
-    for(int i = 0; i < data.at(0).size(); i++) {
+    for(int i = 0; i < data.size(); i++) {
         // Iterate over columns
-        for(int j = 0; j < data.size(); j++) {
-            f << (data)[j][i];
+        for(int j = 0; j < data.at(0).size(); j++) {
+            f << (data)[i][j];
             // Add comma or endline at end of row
-            if( j == data.size()-1 ) {
+            if( j == data.at(0).size()-1 ) {
                 f << std::endl;
             } else {
                 f << ",";

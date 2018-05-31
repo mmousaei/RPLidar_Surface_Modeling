@@ -22,6 +22,7 @@
  #include <string>
  // #include <vector>
  #include <utility>
+ #include<map>
 
  #include <boost/program_options.hpp>
  #include <boost/filesystem.hpp>
@@ -33,10 +34,11 @@ public:
   RPReader(){};
   ~RPReader(){};
   Error read(std::string fname,std::vector<std::vector<std::pair<double, double>>> *polar);
-
+  Error write(std::string fname,std::vector<std::vector<std::pair < double, double >>> *polar);
 private:
   Error err;
   CSVReader csv;
+  static std::vector<std::vector<double>> original_csv;
 };
 
 #endif

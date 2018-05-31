@@ -9,15 +9,14 @@ add_compile_options(-std=c++11)
 
 # Find boost libraries
 find_package(Boost COMPONENTS iostreams thread system program_options filesystem REQUIRED)
-find_package(OpenCV REQUIRED)
 # Include headers
 include_directories(${Boost_INCLUDE_DIRS}
-		    ${OpenCV_INCLUDE_DIRS}
                     include)
 
 # Build libraries
 add_library(error     src/error.cpp)
-add_library(hough     src/hough.cpp)
+#add_library(hough     src/hough.cpp)
+add_library(heatmap     src/heatmap.cpp)
 #add_library(localizer src/localizer.cpp)
 add_library(csvreader src/csvreader.cpp)
 add_library(rpreader src/rpreader.cpp)
@@ -32,9 +31,8 @@ target_link_libraries(main
                       csvreader
                       error
 		      rpreader
-                      hough
-		      ${Boost_LIBRARIES}
-		      ${OpenCV_LIBS})
+		      heatmap
+		      ${Boost_LIBRARIES})
 
 # Set output to bin folder
 #set_target_properties(main PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/bin)

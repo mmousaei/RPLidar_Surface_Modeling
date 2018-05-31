@@ -10,7 +10,8 @@
  #include "error.h"
  #include "csvreader.h"
  #include "rpreader.h"
- #include "hough.h"
+ // #include "hough.h"
+ #include "heatmap.h"
 
  #include <stdlib.h>
  #include <stdio.h>
@@ -18,9 +19,6 @@
  #include <cstdio>
  #include <iostream>
  #include <math.h>
-
- #include "opencv2/highgui.hpp"
- #include "opencv2/imgproc.hpp"
 
  #include <boost/program_options.hpp>
  #include <boost/filesystem.hpp>
@@ -33,7 +31,7 @@ void toCartesian(std::vector<std::vector<std::pair<double, double>>> *polar);
 
 void centering(std::vector<std::vector<std::pair<double, double>>> *uncentered, double r0, double theta0);
 
-void HeatMap(std::vector<std::vector<std::pair<double, double>>> *polarHeatmap);
+void HeatMap1(std::vector<std::vector<std::pair<double, double>>> *polarHeatmap);
 
 void HeatMapTest();
 
@@ -42,59 +40,23 @@ int main(int argc, char** argv)
   Error err;
   CSVReader csv;
   RPReader rp;
-  Hough hough;
+  // Hough hough;
+  HeatMap hm;
 
   std::vector<std::vector<std::pair<double, double>>> rplidar_polar;
 
-  rp.read("../csv/rplidar_scan_42.csv", &rplidar_polar);
+  rp.read("../csv/rplidar_scan_request.csv", &rplidar_polar);
 
   // toCartesian(&rplidar_polar);
 
-  centering(&rplidar_polar, 0.085, 0.05);
+  centering(&rplidar_polar, -0.085, 0.05);
 
-  std::vector<std::vector<double>> centered;
+  rp.write("../csv/centered.csv", &rplidar_polar);
 
+  hm.generateHeatMaps("../csv/scan_bins.csv", &rplidar_polar);
 
-
-
-  // std::cout << rplidar_polar.size() << '\n';
-  // std::cout << rplidar_polar[0].size() << '\n';
-  // HeatMap(&rplidar_polar);
+  // HeatMap1(&rplidar_polar);
   // HeatMapTest();
-
-  std::vector<double> circle;
-  std::vector<double> row;
-
-  for(int i = 0; i < rplidar_polar[0].size(); i++)
-  {
-    for(int j = 0; j < rplidar_polar.size(); j++)
-    {
-      row.push_back(rplidar_polar[i][j].first);
-    }
-    centered.push_back(row);
-    row.erase(row.begin(), row.end());
-  }
-  // std::cout << centered.size() << '\n';
-  // std::cout << centered[100].size() << '\n';
-  //   std::cout << centered[100][129] << '\n';
-
-csv.writeLog("../csv/centered.csv", centered);
-
-  std::vector<std::pair<double, double>> temp;
-  temp = rplidar_polar[0];
-
-  cv::Mat src;
-  int dim = sqrt(temp.size())+1;
-  src = cv::Mat(dim, dim, CV_64F, cv::Scalar(0));
-
-
-  // std::cout<<temp.size();
-// std::vector<double> hg;
-// circle = hough.initializeHough(&temp);
-// std::cout << circle[0] << std::endl;
-  // std::cout << circle[1] << std::endl;
-  // std::cout << circle[2] << std::endl;
-
 
 
   // for(int i = 0; i < rplidar_polar.size(); i++)
@@ -103,20 +65,6 @@ csv.writeLog("../csv/centered.csv", centered);
   //   {
   //     std::cout << "range is: " << rplidar_polar[i][j].first << " angle is: " << rplidar_polar[i][j].second << std::endl;
   //   }
-  // }
-
-
-  // std::vector<std::vector<double>> read;
-
-  // err = csv.read("/home/radpiper/Documents/CMU/RadPiper/Post-Processing/Surface_Modeling/rplidar_scan.csv", &read);
-
-  // for(int i = 0; i < 10; i++)
-  // {
-  //   // for(int j = 0; j < read[0].size(); j++)
-  //   // {
-  //     std::cout << read[13+359][i]<<"  ";
-  //   // }
-  //   std::cout<<std::endl;
   // }
 
   return 0;
@@ -162,19 +110,21 @@ void centering(std::vector<std::vector<std::pair<double, double>>> *uncentered, 
 }
 
 
-void HeatMap(std::vector<std::vector<std::pair<double, double>>> *polarHeatmap)
+void HeatMap1(std::vector<std::vector<std::pair<double, double>>> *polarHeatmap)
 {
 
   int y = polarHeatmap->size();
   int x = polarHeatmap->at(0).size();
-  std::cout << y << '\n';
-  std::cout << x << '\n';
-  int frame[1029][359];
+  // std::cout << y << '\n';
+  // std::cout << x << '\n';
+  int frame[1400][359];
 
   // float *frame = new float[ysize][xsize];
   double radius = 0.375;
   int min_frame = 0;
-  memset(frame,0,sizeof(frame));
+  // memset(frame,0,sizeof(frame));
+  std::vector<std::vector<int> > vtemp;
+  std::vector<int> rows;
   for(int i = 0; i < polarHeatmap->size(); i++)
   {
     for(int j = 0; j < polarHeatmap->at(0).size(); j++)
@@ -184,17 +134,23 @@ void HeatMap(std::vector<std::vector<std::pair<double, double>>> *polarHeatmap)
         // std::cout << "range is: " << polarHeatmap->at(i)[j].first << " angle is: " << polarHeatmap->at(i)[j].second << std::endl;
         frame[i][j] = radius*1000 - polarHeatmap->at(i)[j].first*1000;
         // frame[i][j] = i+j;
+        rows.push_back(frame[i][j]);
+      }
+      else
+      {
+        frame[i][j] = 0;
       }
     }
+    vtemp.push_back(rows);
   }
   Gnuplot gp;
   gp << "unset key\n";
   gp << "cd '../images'\n";
   gp << "set cbrange [-2:50]\n";
   gp << "set palette defined (-2 'navy', 4 'blue', 16 'green', 20 'yellow', 30 'orange', 40 'red')\n";
-  gp << "set pm3d \n";
+  gp << "set pm3d map\n";
   gp << "set hidden3d\n";
-  // gp << "set view map\n";
+  gp << "set view map\n";
   gp << "set xrange [ 0 : 359 ] \n";
   gp << "set yrange [ 0 : 200 ] \n";
   gp << "set terminal png \n";
@@ -208,8 +164,24 @@ void HeatMap(std::vector<std::vector<std::pair<double, double>>> *polarHeatmap)
 
   str1 = "set output 'Surface_Model_";
   str2 = std::to_string(2);
-  str3 = ".jpeg' \n";
-  //
+  str3 = ".png' \n";
+  gp << "set yrange [ 200 : 400 ] \n";
+  gp << str1 + str2 + str3;
+  gp << "splot '-'\n";
+  gp.send2d(frame);
+
+  str1 = "set output 'Surface_Model_";
+  str2 = std::to_string(3);
+  str3 = ".png' \n";
+  gp << "set yrange [ 400 : 600 ] \n";
+  gp << str1 + str2 + str3;
+  gp << "splot '-'\n";
+  gp.send2d(frame);
+
+  str1 = "set output 'Surface_Model_";
+  str2 = std::to_string(4);
+  str3 = ".png' \n";
+  gp << "set yrange [ 600 : 800 ] \n";
   gp << str1 + str2 + str3;
   gp << "splot '-'\n";
   gp.send2d(frame);

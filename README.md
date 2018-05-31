@@ -14,7 +14,39 @@ Please make sure that you have successfully installed the following dependencies
 * [OpenCV](https://opencv.org/) - Open Source Computer Vision Library (V >= 3.2)
 * [GnuPlot](http://www.gnuplot.info/) - gnuplot portable command-line driven graphing utility (V >= 5.3)
 
-### Installing
+#### Installing dependencies:
+
+To install Boost, run the following command:
+
+```
+sudo apt-get update
+sudo apt-get install libboost-all-dev
+```
+
+To install Cmake, run the following command:
+
+```
+sudo apt-get update
+sudo apt-get install build-essential
+sudo apt-get install cmake
+```
+
+To install gnuplot, run the following command:
+
+```
+sudo apt-get update
+sudo apt-get install gnuplot-x11
+```
+
+To install OpenCV, run the following command:
+
+```
+cd dependencies
+sudo bash install_opencv.sh
+```
+
+
+### Building this package
 ---------------------
 Run the following to build the library:
 
@@ -31,31 +63,6 @@ To run the main code:
     ./main
 ```
 
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-
 ## Author
 
 * **Mohammadreza Mousaei** - [mmousaei](https://github.com/mmousaei)
@@ -66,4 +73,4 @@ This project is licensed under the Carnegie Mellon University License
 
 ## Acknowledgments
 
-* Lawrence Papincak
+* Lawrence Papincak (csvreader class)
