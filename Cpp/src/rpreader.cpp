@@ -62,5 +62,5 @@ Error RPReader::write(std::string fname,std::vector<std::vector<std::pair < doub
       output.push_back(row);
       row.erase(row.begin(), row.end());
     }
-    csv.writeLog("../csv/centered.csv", output);
+    csv.writeLog(fname, output);
 }

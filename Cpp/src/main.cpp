@@ -43,13 +43,56 @@ int main(int argc, char** argv)
   // Hough hough;
   HeatMap hm;
 
+  int pipe = 30;
+  double r0 = 0.0;
+  double theta0 = 0.0;
+  bool set_pipe = false;
+  bool set_r0 = false;
+  bool set_theta0 = false;
+
+  if(argc > 2)
+  {
+    for(int i=1;i<argc-1;i++)
+    {
+      if(strcmp(argv[i],"-p") == 0)
+      {
+        pipe = atoi(argv[i+1]);
+        set_pipe = true;
+      }
+      else if(strcmp(argv[i],"-r") == 0)
+      {
+        r0 = atof(argv[i+1]);
+        set_r0 = true;
+      }
+      else if(strcmp(argv[i],"-t") == 0)
+      {
+        theta0 = atof(argv[i+1]);
+        set_theta0 = true;
+      }
+    }
+    // if pipe has been set but r0 hasn't, use
+    //   hard-coded param for that size pipe
+    if( set_pipe && !set_r0)
+    {
+      if(pipe == 30)
+      {
+        r0 = -0.08703;
+      }
+      else if(pipe == 42)
+      {
+        r0 = 0.07161;
+      }
+    }
+  }
+
   std::vector<std::vector<std::pair<double, double>>> rplidar_polar;
 
   rp.read("../csv/rplidar_scan_request.csv", &rplidar_polar);
 
   // toCartesian(&rplidar_polar);
 
-  centering(&rplidar_polar, -0.085, 0.05);
+  //centering(&rplidar_polar, -0.085, 0.05);
+  centering(&rplidar_polar, r0, theta0);
 
   rp.write("../csv/centered.csv", &rplidar_polar);
 

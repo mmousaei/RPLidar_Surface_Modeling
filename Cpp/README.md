@@ -60,7 +60,7 @@ Run the following to build the library:
 To run the main code:
 
 ```
-    ./main
+    ./main -p PIPE_DIAMETER_INCH -r RADIAL_OFFSET_METER -t ANGULAR_OFFSET_RADIAN
 ```
 
 ## Author
